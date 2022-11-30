@@ -12,12 +12,14 @@ import java.awt.event.*;
 
 public class CalculatorGUI extends JFrame {
     Font MONOSPACED_BOLD_20 = new Font("Monospaced", Font.BOLD, 22);
-    JButton addButton, subtractButton, divideButton, multiplyButton, clearButton, undoButton, equalsButton, decimalButton, deleteButton;
+    JButton addButton, subtractButton, divideButton, multiplyButton, clearButton, undoButton, equalsButton, decimalButton, deleteButton, historyButton;
     JButton[] numberButtons;
     JTextField outputDisplay;
     String previousValueAsString, currentValueAsString, operatorAsString;
     Calculator calculator = new Calculator();
     History history = new History();
+    Iterator iterator;
+
 
     public CalculatorGUI() {
         super("Calculator App");
@@ -46,6 +48,7 @@ public class CalculatorGUI extends JFrame {
         clearButton = new JButton("C");
         undoButton = new JButton("U");
         deleteButton = new JButton("D");
+        historyButton = new JButton("H");
 
         // Instantiate action listeners
         NumberBtnHandler numberButtonHandler = new NumberBtnHandler();
@@ -71,6 +74,7 @@ public class CalculatorGUI extends JFrame {
         clearButton.setFont(MONOSPACED_BOLD_20);
         undoButton.setFont(MONOSPACED_BOLD_20);
         deleteButton.setFont(MONOSPACED_BOLD_20);
+        historyButton.setFont(MONOSPACED_BOLD_20);
 
         // Style the output display
         outputDisplay.setMaximumSize(new Dimension(185, 40));
@@ -85,6 +89,7 @@ public class CalculatorGUI extends JFrame {
         undoButton.addActionListener(otherButtonHandler);
         deleteButton.addActionListener(otherButtonHandler);
         equalsButton.addActionListener(otherButtonHandler);
+        historyButton.addActionListener(otherButtonHandler);
 
         // Add action listeners to operation buttons
         multiplyButton.addActionListener(operatorButtonHandler);
@@ -104,6 +109,7 @@ public class CalculatorGUI extends JFrame {
         row1.add(clearButton);
         row1.add(undoButton);
         row1.add(deleteButton);
+        row1.add(historyButton);
         row2.add(numberButtons[7]);
         row2.add(numberButtons[8]);
         row2.add(numberButtons[9]);
@@ -182,7 +188,9 @@ public class CalculatorGUI extends JFrame {
                 clear();
             } else if (selectedBtn == equalsButton) {
                 calculateToString();
-            }
+            } else if (selectedBtn == historyButton) {
+                showHistory();
+        }
         }
     }
 
@@ -230,6 +238,14 @@ public class CalculatorGUI extends JFrame {
         }
         currentValueAsString += num;
         calculator.setCurrentValue(Double.parseDouble(currentValueAsString));
+    }
+
+    public void showHistory(){
+        iterator = history.createIterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.current().getValue());
+            iterator.next();
+        }
     }
 
     public void calculateToString() {

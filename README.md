@@ -1,4 +1,4 @@
-# design-patterns
+# Java Design Patterns
 
 Creating small example projects for all of the main design patterns that I am practicing in Java. All projects have a GUI component at this point although this could change in the future
 

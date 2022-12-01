@@ -10,3 +10,7 @@ An example of a simple music player that has different functionality for 3 diffe
 
 ## Iterator Pattern - Calculator App V2 
 Extending the functionality of the first calculator adding the ability to display the entire history of the calculator by iteratoring through history states
+
+## Strategy Pattern - Encryption Algorithms
+
+
